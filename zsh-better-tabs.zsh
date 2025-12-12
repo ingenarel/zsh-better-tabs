@@ -1,5 +1,3 @@
-currentTab="$(tmux display-message -p '#{session_name}:#{window_index}')"
-
 function cmd-rename(){
     local name
     case "$1" in
@@ -58,11 +56,11 @@ function zellij-cmd-rename() {
 }
 
 function tmux-dir-rename() {
-    tmux rename-window -t "$currentTab" "${PWD//#$HOME/~}" >/dev/null 2>&1
+    tmux rename-window -t "$_ZSH_BETTER_TABS_CURRENT_TAB" "${PWD//#$HOME/~}" >/dev/null 2>&1
 }
 
 function tmux-cmd-rename() {
-    tmux rename-window -t "$currentTab" "$( cmd-rename "$1" )" >/dev/null 2>&1
+    tmux rename-window -t "$_ZSH_BETTER_TABS_CURRENT_TAB" "$( cmd-rename "$1" )" >/dev/null 2>&1
 }
 
 [ "$ZELLIJ" ] && {
@@ -72,6 +70,8 @@ function tmux-cmd-rename() {
 
 
 [ "$TMUX" ] && {
+    _ZSH_BETTER_TABS_CURRENT_TAB="$(tmux display-message -p '#{session_name}:#{window_index}')"
+    export _ZSH_BETTER_TABS_CURRENT_TAB
     add-zsh-hook preexec tmux-cmd-rename
     add-zsh-hook precmd  tmux-dir-rename
 }

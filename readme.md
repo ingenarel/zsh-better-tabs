@@ -1,5 +1,9 @@
 The new age of auto tab renaming
 
+Has starship support by default.
+
+If you want to add more prompts, PRs are more than appreciated
+
 ### Demo:
 ![demo](./demo.gif)
 

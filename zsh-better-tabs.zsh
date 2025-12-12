@@ -50,8 +50,21 @@ function cmd-rename(){
     echo "$name"
 }
 
+function pwd-rename(){
+    command -v starship > /dev/null 2>&1 && {
+        starship prompt |
+        # ansi sequence regex from:
+        # https://github.com/iarchean/tmux-starship/blob/ae995df7ac18175719da69430521f7d6f3e39a4e/scripts/helper.sh#L17C14-L17C44
+        sed -E 's/\x1b\[[0-9;()]*[a-zA-Z@]?//g; s/%\{|%\}//g; s/\s*$//g' |
+        head -n2 |
+        tail -n1
+        } || {
+        echo "${PWD//#$HOME/~}"
+    }
+}
+
 function zellij-dir-rename() {
-    zellij action rename-tab "${PWD//#$HOME/~}" >/dev/null 2>&1
+    zellij action rename-tab "$( pwd-rename "$1" )" >/dev/null 2>&1
 }
 
 function zellij-cmd-rename() {
@@ -59,7 +72,7 @@ function zellij-cmd-rename() {
 }
 
 function tmux-dir-rename() {
-    tmux rename-window -t "$_ZSH_BETTER_TABS_CURRENT_TAB" "${PWD//#$HOME/~}" >/dev/null 2>&1
+    tmux rename-window -t "$_ZSH_BETTER_TABS_CURRENT_TAB" "$( pwd-rename "$1" )" >/dev/null 2>&1
 }
 
 function tmux-cmd-rename() {

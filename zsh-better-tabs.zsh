@@ -4,8 +4,11 @@ function cmd-rename(){
         nvim*)
             name=""
             ;;
-        bash*|zsh*|sh*|fish*)
+        bash*|zsh*|sh*)
             name=""
+            ;;
+        fish*)
+            name="󰈺"
             ;;
         ssh*)
             name="🖧"

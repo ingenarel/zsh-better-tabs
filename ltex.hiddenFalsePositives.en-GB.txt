@@ -1,0 +1,3 @@
+{"rule":"MORFOLOGIK_RULE_EN_GB","sentence":"^\\Qusing Zinit:\\E$"}
+{"rule":"TO_DO_HYPHEN","sentence":"^\\QTodo:\\E$"}
+{"rule":"TO_DO_HYPHEN","sentence":"^\\QTodo:\nAdd this plugin to:\nAUR\nGuru\nConfig options?\\E$"}

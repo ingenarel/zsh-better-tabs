@@ -23,9 +23,10 @@ zinit load ingenarel/zsh-better-tabs
         specific commands/executables which gets replaces by other commands/executables or quits after a certain time.
 
         Fixes:
-            - If Zellij enables them in the CLI in future, open an issue.
-            - If I learn Rust and the Zellij SDK, I'll fix it myself.
-            - If you know Rust and the Zellij SDK, fix it yourself and open a PR :3
+
+         - If Zellij enables them in the CLI in future, open an issue.
+         - If I learn Rust and the Zellij SDK, I'll fix it myself.
+         - If you know Rust and the Zellij SDK, fix it yourself and open a PR :3
 
 ### Todo:
 - Add this plugin to:

@@ -43,6 +43,9 @@ function cmd-rename(){
         neomutt*)
             name=""
             ;;
+        aerc*)
+            name="📧"
+            ;;
         *)
             name="$1"
             ;;

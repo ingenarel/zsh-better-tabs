@@ -54,16 +54,12 @@ function cmd-rename(){
 }
 
 function pwd-rename(){
-    command -v starship > /dev/null 2>&1 && {
-        starship prompt |
-        # ansi sequence regex from:
-        # https://github.com/iarchean/tmux-starship/blob/ae995df7ac18175719da69430521f7d6f3e39a4e/scripts/helper.sh#L17C14-L17C44
-        sed -E 's/\x1b\[[0-9;()]*[a-zA-Z@]?//g; s/%\{|%\}//g; s/\s*$//g' |
-        head -n2 |
-        tail -n1
-        } || {
-        echo "${PWD//#$HOME/~}"
-    }
+    gitRoot="$( git rev-parse --show-toplevel 2>/dev/null )"
+    if [ -z "$gitRoot" ]; then
+        realpath --canonicalize-missing "$PWD" | sed -e "s|$HOME|~|"
+    else
+        realpath --relative-base "$gitRoot/.." --canonicalize-missing "$PWD"
+    fi
 }
 
 function zellij-dir-rename() {

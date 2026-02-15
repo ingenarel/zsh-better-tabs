@@ -46,6 +46,9 @@ function cmd-rename(){
         aerc*)
             name="📧"
             ;;
+        mpv*)
+            name=""
+            ;;
         *)
             name="$1"
             ;;

@@ -49,6 +49,9 @@ function cmd-rename(){
         mpv*)
             name=""
             ;;
+        wl-screenrec*|wf-recorder*)
+            name=""
+            ;;
         *)
             name="$1"
             ;;

@@ -69,30 +69,30 @@ function pwd-rename(){
 }
 
 function zellij-dir-rename() {
-    zellij action rename-tab "$( pwd-rename "$1" )" >/dev/null 2>&1
+    zellij action rename-tab --tab-id "$_ZSH_BETTER_TABS_CURRENT_TAB" "$( pwd-rename "$1" )" > /dev/null 2>&1
 }
 
 function zellij-cmd-rename() {
-    zellij action rename-tab "$( cmd-rename "$1" )" >/dev/null 2>&1
+    zellij action rename-tab --tab-id "$_ZSH_BETTER_TABS_CURRENT_TAB" "$( cmd-rename "$1" )" > /dev/null 2>&1
 }
 
 function tmux-dir-rename() {
-    tmux rename-window -t "$_ZSH_BETTER_TABS_CURRENT_TAB" "$( pwd-rename "$1" )" >/dev/null 2>&1
+    tmux rename-window -t "$_ZSH_BETTER_TABS_CURRENT_TAB" "$( pwd-rename "$1" )" > /dev/null 2>&1
 }
 
 function tmux-cmd-rename() {
-    tmux rename-window -t "$_ZSH_BETTER_TABS_CURRENT_TAB" "$( cmd-rename "$1" )" >/dev/null 2>&1
+    tmux rename-window -t "$_ZSH_BETTER_TABS_CURRENT_TAB" "$( cmd-rename "$1" )" > /dev/null 2>&1
 }
 
-[ "$ZELLIJ" ] && {
+if [ -n "$ZELLIJ" ]; then
+    _ZSH_BETTER_TABS_CURRENT_TAB="$(zellij action current-tab-info | sed -nE 's/^id: (.+)/\1/p')"
+    [ -z "$_ZSH_BETTER_TABS_CURRENT_TAB" ] && _ZSH_BETTER_TABS_CURRENT_TAB=0
+    export _ZSH_BETTER_TABS_CURRENT_TAB
     add-zsh-hook preexec zellij-cmd-rename
     add-zsh-hook precmd  zellij-dir-rename
-}
-
-
-[ "$TMUX" ] && {
+elif [ -n "$TMUX" ]; then
     _ZSH_BETTER_TABS_CURRENT_TAB="$(tmux display-message -p '#{session_name}:#{window_index}')"
     export _ZSH_BETTER_TABS_CURRENT_TAB
     add-zsh-hook preexec tmux-cmd-rename
     add-zsh-hook precmd  tmux-dir-rename
-}
+fi

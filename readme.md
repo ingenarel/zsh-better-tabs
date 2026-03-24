@@ -1,5 +1,11 @@
 The new age of auto tab renaming
 
+> NOTE: the internal logic uses posix compliant syntax, so one can easily port this plugin to support every single posix
+> compliant shell, if you wanna use different shells, open an issue, or a PR yourself, should just be a few lines of
+> fixes
+
+Tmux will just work, you'll need zellij 0.44.0 or more tho
+
 ### Demo:
 ![demo](./demo.gif)
 
@@ -12,21 +18,6 @@ zinit load ingenarel/zsh-better-tabs
 ```
 
 - or just install the file manually
-
-### Known problems:
-
-- Zellij:
-    - Zellij will only rename the current pane that the user is in:
-
-        Zellij doesn't currently have a way to expose specific stuff like current session and window name in the CLI,
-        nor does it take those as inputs for the `rename-tab` action, thus this script can rename the wrong pane for
-        specific commands/executables which gets replaces by other commands/executables or quits after a certain time.
-
-        Fixes:
-
-         - If Zellij enables them in the CLI in future, open an issue.
-         - If I learn Rust and the Zellij SDK, I'll fix it myself.
-         - If you know Rust and the Zellij SDK, fix it yourself and open a PR :3
 
 ### Todo:
 - Add this plugin to:
